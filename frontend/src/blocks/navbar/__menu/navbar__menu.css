@@ -1,0 +1,27 @@
+.navbar__menu {
+  width: 100%;
+  max-width: 880px;
+  position: absolute;
+  top: 51px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@media screen and (max-width: 919px) {
+  .navbar__menu {
+    width: calc(100% - 38px);
+    left: 19px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .navbar__menu {
+    width: 100%;
+    min-height: 142px;
+    position: unset;
+    flex-direction: column;
+    align-items: center;
+    display: none;
+    border-bottom: 1px solid rgba(84, 84, 84, 0.7);
+  }
+}

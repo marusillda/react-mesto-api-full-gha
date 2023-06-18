@@ -1,0 +1,8 @@
+.popup__tooltip-image {
+  margin: 16px auto 32px auto;
+  width: 120px;
+  height: 120px;
+  display: block;
+  object-fit: cover;
+  background-image: url("../../../images/popup-tooltip-image-ok.jpg");
+}

@@ -1,0 +1,23 @@
+.header__navbar-user {
+  color: rgba(255, 255, 255, 1);
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.222;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+  .header__navbar-user {
+    max-width: 150px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .header__navbar-user {
+    max-width: unset;
+    padding-top: 13px;
+  }
+}

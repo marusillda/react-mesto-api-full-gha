@@ -1,0 +1,7 @@
+.selectable-white {
+  transition: opacity .3s ease-in-out;
+}
+
+.selectable-white:hover {
+  opacity: .6;
+}

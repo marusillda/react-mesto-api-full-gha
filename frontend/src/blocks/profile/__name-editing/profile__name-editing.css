@@ -1,0 +1,16 @@
+.profile__name-editing {
+  display: flex;
+}
+
+@media screen and (max-width: 677px) {
+  .profile__name-editing  {
+    justify-content: center;
+    padding-top: 25.25px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .profile__name-editing  {
+    padding-left: 26px;
+  }
+}

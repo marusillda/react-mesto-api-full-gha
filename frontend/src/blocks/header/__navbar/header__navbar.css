@@ -1,0 +1,13 @@
+.header__navbar {
+  display: flex;
+  padding-top: 7px;
+}
+
+@media screen and (max-width: 420px) {
+  .header__navbar {
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 27px;
+    padding-top: unset;
+  }
+}

@@ -1,0 +1,22 @@
+.login__field {
+  color: rgba(255, 255, 255, 1);
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.21;
+  border: 0;
+  width: 100%;
+  border-bottom: 2px solid rgba(204, 204, 204, 1);
+  background-color: transparent;
+  padding: 0 0 13px 0;
+  box-sizing: border-box;
+}
+
+.login__field+.login__field {
+  margin-top: 30px;
+}
+
+.login__field::placeholder {
+  color: rgba(204, 204, 204, 1);
+  font-weight: 400;
+}

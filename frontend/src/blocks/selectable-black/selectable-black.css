@@ -1,0 +1,7 @@
+.selectable-black {
+  transition: opacity .3s ease-in-out;
+}
+
+.selectable-black:hover {
+  opacity: .8;
+}

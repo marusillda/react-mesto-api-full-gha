@@ -1,0 +1,8 @@
+.navbar__overlay {
+  position: absolute;
+  z-index: 10;
+}
+
+.navbar__overlay.active:hover {
+  background: none;
+}

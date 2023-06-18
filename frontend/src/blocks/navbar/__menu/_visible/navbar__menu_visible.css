@@ -1,0 +1,4 @@
+.navbar__menu_visible {
+  display: flex;
+  transition: display 2s ease-in-out;
+}
