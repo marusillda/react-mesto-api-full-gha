@@ -5,6 +5,7 @@ require('dotenv').config();
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const router = require('./routes/index');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const errorHandler = require('./middlewares/errorHandler');
 
@@ -22,7 +23,9 @@ app.use(rateLimit({
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 }));
 
+app.use(requestLogger); // подключаем логгер запросов
 app.use(router);
+app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors());
 
 app.use(errorHandler);

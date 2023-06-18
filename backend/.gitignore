@@ -16,3 +16,6 @@ node_modules
 
 # JWT_SECRET
 .env
+
+#Logger
+*.log
