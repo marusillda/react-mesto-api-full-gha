@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import api from '../utils/Api.js';
 import Header from './Header.js';
 import Main from './Main.js';
 import PopupWithForm from './PopupWithForm.js';
@@ -11,7 +10,18 @@ import AddPlacePopup from './AddPlacePopup.js';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import Register from './Register.js';
 import Login from './Login.js';
-import { register, authorize, getUserData } from '../utils/AuthApi.js';
+import {
+  register,
+  authorize,
+  likeCard,
+  unlikeCard,
+  deleteCard,
+  changeUserProfile,
+  changeAvatar,
+  addNewCard,
+  getUserProfile,
+  getInitialCards
+} from '../utils/AuthApi.js';
 import ProtectedRoute from './ProtectedRoute.js';
 import InfoTooltip from './InfoTooltip.js';
 
@@ -22,13 +32,12 @@ export default function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-  const [currentUser, setCurrentUser] = useState({});
-  const [cards, setCards] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userData, setUserData] = useState({
+  const [currentUser, setCurrentUser] = useState({
     _id: "",
     email: "",
   });
+  const [cards, setCards] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const [registrationStatus, setRegistrationStatus] = useState(false);
@@ -77,8 +86,8 @@ export default function App() {
       isLocalStorageRead && setIsLoading(false);
       return;
     }
-    getUserData(token).then(userData => {
-      setUserData(userData && userData.data);
+    getUserProfile(token).then(user => {
+      setCurrentUser(user);
       setIsLoggedIn(true);
       navigate('/', { replace: true });
     })
@@ -106,7 +115,7 @@ export default function App() {
     localStorage.removeItem("token");
     setToken("");
     setIsLoggedIn(false);
-    setUserData({
+    setCurrentUser({
       _id: "",
       email: "",
     });
@@ -121,8 +130,8 @@ export default function App() {
   }
 
   const handleCardLike = ((card) => {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-    const promise = isLiked ? api.unlikeCard(card._id) : api.likeCard(card._id);
+    const isLiked = card.likes.some(id => id === currentUser._id);
+    const promise = isLiked ? unlikeCard(card._id, token) : likeCard(card._id, token);
     promise.then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     })
@@ -130,14 +139,14 @@ export default function App() {
   });
 
   const handleCardDelete = ((cardId) => {
-    api.deleteCard(cardId).then(() => {
+    deleteCard(cardId, token).then(() => {
       setCards((state) => state.filter((c) => c._id !== cardId));
     })
       .catch(error => console.log(`Ошибка при удалении карточки: ${error}`));
   });
 
   const handleUpdateUser = ((userProfile) => {
-    api.changeUserProfile(userProfile).then(user => {
+    changeUserProfile(userProfile, token).then(user => {
       setCurrentUser(user);
       closeAllPopups();
     })
@@ -145,7 +154,7 @@ export default function App() {
   });
 
   const handleUpdateAvatar = (({ avatar }) => {
-    api.changeAvatar(avatar).then(user => {
+    changeAvatar(avatar, token).then(user => {
       setCurrentUser(user);
       closeAllPopups();
     })
@@ -153,7 +162,7 @@ export default function App() {
   });
 
   const handleAddPlaceSubmit = ((card) => {
-    api.addNewCard(card).then((newCard) => {
+    addNewCard(card, token).then((newCard) => {
       setCards([newCard, ...cards]);
       closeAllPopups();
     })
@@ -161,18 +170,14 @@ export default function App() {
   });
 
   useEffect(() => {
-    api.getUserProfile().then(user => {
-      setCurrentUser(user);
-    })
-      .catch(error => console.log(`Ошибка загрузки профиля пользователя: ${error}`));
-  }, []);
-
-  useEffect(() => {
-    api.getInitialCards().then(cards => {
+    if (!token) {
+      return;
+    }
+    getInitialCards(token).then(cards => {
       setCards(cards);
     })
       .catch(error => console.log(`Ошибка загрузки начальных карточек: ${error}`));
-  }, []);
+  }, [token]);
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -223,10 +228,7 @@ export default function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header
-          userData={userData}
-          signOut={signOut}
-        />
+        <Header signOut={signOut} />
         <Routes>
           <Route path="/" element={
             <ProtectedRoute

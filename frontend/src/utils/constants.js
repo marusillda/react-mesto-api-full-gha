@@ -16,7 +16,7 @@ const popupPreviewSelector = '.popup_type_image';
 const popupEditSelector = '.popup_type_edit';
 const popupAddSelector = '.popup_type_new-card';
 const popupEditAvatarSelector = '.popup_type_edit-avatar';
-const popupDeleteCardSelector ='.popup_type_delete-confirm';
+const popupDeleteCardSelector = '.popup_type_delete-confirm';
 const popupFormSelector = '.popup__form';
 const popupFieldSelector = '.popup__field';
 const popupSubmitButtonSelector = '.popup__submit-button';
@@ -28,8 +28,7 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
 const profileAvatarElement = document.querySelector('.profile__avatar-overlay');
 const pageForms = document.querySelectorAll(validationOptions.formSelector);
-const baseUrl = 'https://mesto.nomoreparties.co/v1/cohort-61';
-const authorization = 'a1627f3c-6851-451f-acf3-d59a825ceb4e';
+const { REACT_APP_BASE_URL: baseUrl = 'http://localhost:3000' } = process.env;
 
 export {
   cardElementsSelector,
@@ -56,5 +55,4 @@ export {
   popupConfirmButtonSelector,
   popupEditAvatarSelector,
   baseUrl,
-  authorization
 }

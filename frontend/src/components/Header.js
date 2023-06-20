@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import headerLogo from '../images/header-logo.svg';
 import { Link, useLocation } from 'react-router-dom';
 import Navbar from './Navbar';
 import NavbarMenu from './NavbarMenu';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-export default function Header({ userData, signOut }) {
+
+export default function Header({ signOut }) {
   const { pathname } = useLocation();
   const showRegistration = pathname === '/sign-in';
   const showLogin = pathname === '/sign-up';
   const showNavbar = !showLogin && !showRegistration;
   const [isMenuClicked, setIsMenuClicked] = useState(false);
-
+  const currentUser = useContext(CurrentUserContext);
 
   const handleNavbarClick = () => {
     setIsMenuClicked(!isMenuClicked);
@@ -21,7 +23,7 @@ export default function Header({ userData, signOut }) {
       <div>
         {showNavbar && (
           <NavbarMenu isMenuClicked={isMenuClicked}>
-            <div className="header__navbar-user">{userData.email}</div>
+            <div className="header__navbar-user">{currentUser?.email}</div>
             <Link to="/sign-in" className="header__navbar-link header__navbar-link_exit selectable-white" onClick={signOut}>Выйти</Link>
           </NavbarMenu>)}
       </div>

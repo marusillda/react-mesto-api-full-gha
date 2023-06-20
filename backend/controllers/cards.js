@@ -8,7 +8,7 @@ const cardModel = require('../models/card');
 const asyncHandler = require('../middlewares/asyncHandler');
 
 const getCards = asyncHandler(async (req, res) => {
-  const cards = await cardModel.find({});
+  const cards = await cardModel.find({}).sort('-createdAt');
   res.send(cards);
 });
 
