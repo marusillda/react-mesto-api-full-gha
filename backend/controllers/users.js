@@ -9,7 +9,7 @@ const createError = require('http-errors');
 const userModel = require('../models/user');
 const asyncHandler = require('../middlewares/asyncHandler');
 
-const { TOKEN_SECRET = '421b5fa29e2f3344c4' } = process.env;
+const { JWT_SECRET = '421b5fa29e2f3344c4' } = process.env;
 
 const getUsers = asyncHandler(async (req, res) => {
   const users = await userModel.find({});
@@ -40,7 +40,7 @@ const loginUser = asyncHandler(async (req, res, next) => {
   if (!compareResult) {
     return next(createError(HTTP_STATUS_UNAUTHORIZED, 'Пользователь не авторизован'));
   }
-  const token = jwt.sign({ _id: user._id }, TOKEN_SECRET, { expiresIn: '7d' });
+  const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '7d' });
   return res.send({ token });
 });
 

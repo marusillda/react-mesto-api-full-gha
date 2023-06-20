@@ -4,7 +4,7 @@ const {
 const createError = require('http-errors');
 const jwt = require('jsonwebtoken');
 
-const { TOKEN_SECRET = '421b5fa29e2f3344c4' } = process.env;
+const { JWT_SECRET = '421b5fa29e2f3344c4' } = process.env;
 
 const auth = (req, res, next) => {
   if (!req.headers.authorization) {
@@ -14,7 +14,7 @@ const auth = (req, res, next) => {
   const token = req.headers.authorization.replace('Bearer ', '');
 
   try {
-    req.user = jwt.verify(token, TOKEN_SECRET);
+    req.user = jwt.verify(token, JWT_SECRET);
     return next();
   } catch (err) {
     return next(createError(HTTP_STATUS_UNAUTHORIZED, 'Пользователь не авторизован'));
