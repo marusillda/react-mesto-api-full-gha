@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 62.84.123.152
+IP 62.84.123.152
 
 Frontend https://mesto.marusillda.nomoreparties.sbs
 
