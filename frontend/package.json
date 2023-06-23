@@ -19,7 +19,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "copy-frontend": "scp -r ./build maria@mesto.marusillda.nomoreparties.sbs:./react-mesto-api-full-gha/frontend/"
   },
   "eslintConfig": {
     "extends": [
