@@ -6,7 +6,7 @@
 
 ## [Демонстрация сайта](https://marusillda.github.io/mesto/)
 
-![Превью проекта](./frontend/src/images/mesto-full-gha.jpg)
+![Превью проекта](./frontend/src/images/mesto-full-gha.JPG)
 
 Код проекта можно посмотреть по [ссылке](https://github.com/marusillda/react-mesto-api-full-gha)
 
